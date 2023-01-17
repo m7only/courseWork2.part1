@@ -10,7 +10,7 @@ public class DailyTask extends Task {
     }
 
     @Override
-    public boolean appearsln(LocalDate localDate) {
+    public boolean isRepeatable(LocalDate localDate) {
         return true;
     }
 }

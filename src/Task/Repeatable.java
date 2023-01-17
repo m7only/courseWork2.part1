@@ -3,5 +3,5 @@ package Task;
 import java.time.LocalDate;
 
 public interface Repeatable {
-    boolean appearsln(LocalDate localDate);
+    boolean isRepeatable(LocalDate localDate);
 }

@@ -9,7 +9,7 @@ public class OneTimeTask extends Task {
     }
 
     @Override
-    public boolean appearsln(LocalDate localDate) {
+    public boolean isRepeatable(LocalDate localDate) {
         return false;
     }
 }

@@ -15,7 +15,7 @@ public class TaskService {
     }
 
     public Task updateDescription(int id, String description) {
-        if (!taskMap.containsKey(id)) {
+        if (!taskMap.containsKey(id) || taskMap.get(id) == null) {
             throw new TaskNotFoundException();
         }
         taskMap.get(id).setDescription(description);
@@ -27,7 +27,7 @@ public class TaskService {
     }
 
     public Task remove(int id) {
-        if (!taskMap.containsKey(id)) {
+        if (!taskMap.containsKey(id) || taskMap.get(id) == null) {
             throw new TaskNotFoundException();
         }
         Task task = taskMap.get(id);
@@ -39,17 +39,19 @@ public class TaskService {
     public Map<LocalDate, LinkedList<Task>> getAllGroupByDate() {
         Map<LocalDate, LinkedList<Task>> resultMap = new TreeMap<>();
         for (Map.Entry<Integer, Task> entry : taskMap.entrySet()) {
-            LocalDate localDate = entry.getValue().getDateTime().toLocalDate();
-            if (!resultMap.containsKey(localDate)) {
-                resultMap.put(localDate, new LinkedList<>());
+            if (entry.getValue() != null) {
+                LocalDate localDate = entry.getValue().getDateTime().toLocalDate();
+                if (!resultMap.containsKey(localDate)) {
+                    resultMap.put(localDate, new LinkedList<>());
+                }
+                resultMap.get(localDate).add(entry.getValue());
             }
-            resultMap.get(localDate).add(entry.getValue());
         }
         return resultMap;
     }
 
     public Task updateTitle(int id, String title) {
-        if (!taskMap.containsKey(id)) {
+        if (!taskMap.containsKey(id) || taskMap.get(id) == null) {
             throw new TaskNotFoundException();
         }
         taskMap.get(id).setTitle(title);
@@ -59,7 +61,7 @@ public class TaskService {
     public List<Task> getAllByDate(LocalDate localDate) {
         List<Task> list = new LinkedList<>();
         for (Map.Entry<Integer, Task> entry : taskMap.entrySet()) {
-            if (entry.getValue().getDateTime().toLocalDate().equals(localDate) || entry.getValue().appearsln(localDate)) {
+            if (entry.getValue() != null && (entry.getValue().getDateTime().toLocalDate().equals(localDate) || entry.getValue().isRepeatable(localDate))) {
                 list.add(entry.getValue());
             }
         }
