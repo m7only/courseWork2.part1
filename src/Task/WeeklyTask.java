@@ -12,7 +12,7 @@ public class WeeklyTask extends Task {
 
     @Override
     public boolean isRepeatable(LocalDate localDate) {
-        long diff = ChronoUnit.DAYS.between(localDate, getDateTime().toLocalDate());
-        return diff % Frequency.WEEKLY.getFrequency() == 0;
+        return ChronoUnit.DAYS.between(localDate, getDateTime().toLocalDate())
+                % Frequency.WEEKLY.getFrequency() == 0;
     }
 }

@@ -11,7 +11,7 @@ public class YearlyTask extends Task {
 
     @Override
     public boolean isRepeatable(LocalDate localDate) {
-        long diff = ChronoUnit.DAYS.between(localDate, getDateTime().toLocalDate());
-        return diff % Frequency.YEARLY.getFrequency() == 0;
+        return ChronoUnit.DAYS.between(localDate, getDateTime().toLocalDate())
+                % Frequency.YEARLY.getFrequency() == 0;
     }
 }
